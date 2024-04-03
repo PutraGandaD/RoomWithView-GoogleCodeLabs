@@ -44,9 +44,11 @@ android {
 dependencies {
     val room_version = "2.6.1"
     val lifecycle_version = "2.7.0"
+    val activity_version = "1.8.2"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.activity:activity-ktx:$activity_version")
 
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
