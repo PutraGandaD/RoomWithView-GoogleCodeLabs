@@ -19,7 +19,7 @@ class AddEditWordActivity : AppCompatActivity() {
         val btnSaveWord = binding.btnSave
         var id = 0 /// default id to 0
 
-        val notes = intent.getParcelableExtra<Word>("word")
+        val notes = intent.getParcelableExtra<Word>(MainActivity.PUT_EXTRA_WORD)
         if(notes != null) {
             editTextWord.editText?.setText(notes.word)
             id = notes.id

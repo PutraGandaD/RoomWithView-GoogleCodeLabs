@@ -65,8 +65,12 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
 
     override fun onItemClicked(word: Word) {
         val intent = Intent(this@MainActivity, AddEditWordActivity::class.java)
-        intent.putExtra("word", word)
+        intent.putExtra(PUT_EXTRA_WORD, word)
         startActivityForResult(intent, updateWordActivityRequestCode)
         Toast.makeText(this, "${word.id}, ${word.word}", Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        val PUT_EXTRA_WORD = "PUT_EXTRA_WORD"
     }
 }
