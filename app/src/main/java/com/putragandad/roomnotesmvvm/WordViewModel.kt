@@ -21,6 +21,10 @@ class WordViewModel(private val repository: WordRepository): ViewModel() {
     fun insert(word: Word) = viewModelScope.launch {
         repository.insert(word)
     }
+
+    fun update(word: Word) = viewModelScope.launch {
+        repository.update(word)
+    }
 }
 
 // This class below created the ViewModel above

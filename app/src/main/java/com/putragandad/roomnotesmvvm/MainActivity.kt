@@ -4,18 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.UserDictionary.Words
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.putragandad.roomnotesmvvm.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private val newWordActivityRequestCode = 1
+    private val updateWordActivityRequestCode = 2
 
     // Connect MainActivity with the data through ViewModel
     private val wordViewModel: WordViewModel by viewModels {
@@ -39,10 +37,10 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
             words?.let { adapter.submitList(it) }
         })
 
-        // set FAB to launch NewWordActivity
+        // set FAB to launch AddEditWordActivity
         val fab = binding.floatingActionButton
         fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, NewWordActivity::class.java)
+            val intent = Intent(this@MainActivity, AddEditWordActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
     }
@@ -51,9 +49,14 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let {
-                val word = Word(0, it)
+            data?.getParcelableExtra<Word>(AddEditWordActivity.EXTRA_REPLY)?.let {
+                val word = Word(it.id, it.word)
                 wordViewModel.insert(word)
+            }
+        } else if(requestCode == updateWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            data?.getParcelableExtra<Word>(AddEditWordActivity.EXTRA_REPLY)?.let {
+                val word = Word(it.id, it.word)
+                wordViewModel.update(word)
             }
         } else {
             Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
@@ -61,6 +64,9 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
     }
 
     override fun onItemClicked(word: Word) {
+        val intent = Intent(this@MainActivity, AddEditWordActivity::class.java)
+        intent.putExtra("word", word)
+        startActivityForResult(intent, updateWordActivityRequestCode)
         Toast.makeText(this, "${word.id}, ${word.word}", Toast.LENGTH_SHORT).show()
     }
 }

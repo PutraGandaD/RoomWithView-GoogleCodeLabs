@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 // Dao = Data Access Object
@@ -20,5 +21,8 @@ interface WordDao {
     // Deleting all words
     @Query("DELETE FROM word_table")
     suspend fun deleteAll()
+
+    @Update
+    suspend fun update(word: Word)
 }
 
