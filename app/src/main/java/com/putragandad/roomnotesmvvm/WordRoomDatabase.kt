@@ -56,9 +56,9 @@ public abstract class WordRoomDatabase : RoomDatabase() {
                 // Delete all content here.
                 wordDao.deleteAll()
 
-                var word = Word("Hello")
+                var word = Word(0, "Hello")
                 wordDao.insert(word)
-                word = Word("World!")
+                word = Word(0, "World!")
                 wordDao.insert(word)
             }
         }

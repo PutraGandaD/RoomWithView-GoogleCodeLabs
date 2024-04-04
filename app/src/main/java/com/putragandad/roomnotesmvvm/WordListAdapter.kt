@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class WordListAdapter : ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
+class WordListAdapter(val itemClickListener: OnItemClickListener) : ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder.create(parent)
@@ -16,14 +16,18 @@ class WordListAdapter : ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsC
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.word)
+        holder.bind(current, itemClickListener)
     }
 
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val wordItemView: TextView = itemView.findViewById(R.id.textView)
 
-        fun bind(text: String?) {
-            wordItemView.text = text
+        fun bind(word: Word, clickListener: OnItemClickListener) {
+            wordItemView.text = word.word
+
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(word)
+            }
         }
 
         companion object {
@@ -44,4 +48,8 @@ class WordListAdapter : ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsC
             return oldItem.word == newItem.word
         }
     }
+}
+
+interface OnItemClickListener{
+    fun onItemClicked(word: Word)
 }

@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.putragandad.roomnotesmvvm.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private val newWordActivityRequestCode = 1
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         // define recyclerview
         val recyclerView = binding.recyclerview
-        val adapter = WordListAdapter()
+        val adapter = WordListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -52,11 +52,15 @@ class MainActivity : AppCompatActivity() {
 
         if(requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let {
-                val word = Word(it)
+                val word = Word(0, it)
                 wordViewModel.insert(word)
             }
         } else {
             Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onItemClicked(word: Word) {
+        Toast.makeText(this, "${word.id}, ${word.word}", Toast.LENGTH_SHORT).show()
     }
 }
