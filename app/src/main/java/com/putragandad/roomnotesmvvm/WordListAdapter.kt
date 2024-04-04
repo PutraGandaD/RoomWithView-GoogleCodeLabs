@@ -16,18 +16,18 @@ class WordListAdapter(val itemClickListener: OnItemClickListener) : ListAdapter<
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current, itemClickListener)
+        holder.bind(current.word)
+
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClicked(current)
+        }
     }
 
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val wordItemView: TextView = itemView.findViewById(R.id.textView)
 
-        fun bind(word: Word, clickListener: OnItemClickListener) {
-            wordItemView.text = word.word
-
-            itemView.setOnClickListener {
-                clickListener.onItemClicked(word)
-            }
+        fun bind(text: String?) {
+            wordItemView.text = text
         }
 
         companion object {
