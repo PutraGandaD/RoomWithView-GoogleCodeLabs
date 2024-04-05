@@ -3,6 +3,7 @@ package com.putragandad.roomnotesmvvm
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -18,7 +19,10 @@ class WordListAdapter(val itemClickListener: OnItemClickListener) : ListAdapter<
         val current = getItem(position)
         holder.bind(current.word)
 
-        holder.itemView.setOnClickListener {
+        val editIcon: ImageView = holder.itemView.findViewById(R.id.iv_edit_action)
+        val deleteIcon: ImageView = holder.itemView.findViewById(R.id.iv_delete_action)
+
+        editIcon.setOnClickListener {
             itemClickListener.onItemClicked(current)
         }
     }
