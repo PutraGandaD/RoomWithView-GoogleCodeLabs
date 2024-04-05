@@ -25,6 +25,10 @@ class WordListAdapter(val itemClickListener: OnItemClickListener) : ListAdapter<
         editIcon.setOnClickListener {
             itemClickListener.onItemClicked(current)
         }
+
+        deleteIcon.setOnClickListener {
+            itemClickListener.onDelete(current)
+        }
     }
 
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -56,4 +60,5 @@ class WordListAdapter(val itemClickListener: OnItemClickListener) : ListAdapter<
 
 interface OnItemClickListener{
     fun onItemClicked(word: Word)
+    fun onDelete(word: Word)
 }

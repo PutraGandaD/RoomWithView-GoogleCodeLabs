@@ -1,6 +1,7 @@
 package com.putragandad.roomnotesmvvm
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -24,5 +25,8 @@ interface WordDao {
 
     @Update
     suspend fun update(word: Word)
+
+    @Delete
+    suspend fun delete(word: Word)
 }
 

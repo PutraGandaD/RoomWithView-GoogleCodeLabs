@@ -48,15 +48,20 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getParcelableExtra<Word>(AddEditWordActivity.EXTRA_REPLY)?.let {
-                val word = Word(it.id, it.word)
-                wordViewModel.insert(word)
-            }
-        } else if(requestCode == updateWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getParcelableExtra<Word>(AddEditWordActivity.EXTRA_REPLY)?.let {
-                val word = Word(it.id, it.word)
-                wordViewModel.update(word)
+        if(resultCode == Activity.RESULT_OK) {
+            when(requestCode) {
+                newWordActivityRequestCode -> {
+                    data?.getParcelableExtra<Word>(AddEditWordActivity.EXTRA_REPLY)?.let {
+                        val word = Word(it.id, it.word)
+                        wordViewModel.insert(word)
+                    }
+                }
+                updateWordActivityRequestCode -> {
+                    data?.getParcelableExtra<Word>(AddEditWordActivity.EXTRA_REPLY)?.let {
+                        val word = Word(it.id, it.word)
+                        wordViewModel.update(word)
+                    }
+                }
             }
         } else {
             Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
@@ -68,6 +73,10 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         intent.putExtra(PUT_EXTRA_WORD, word)
         startActivityForResult(intent, updateWordActivityRequestCode)
         Toast.makeText(this, "${word.id}, ${word.word}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDelete(word: Word) {
+        wordViewModel.delete(word)
     }
 
     companion object {
