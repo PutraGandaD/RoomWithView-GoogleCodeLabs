@@ -1,4 +1,4 @@
-# Simple Notes App (Room With A View Kotlin - Google Codelabs)
+# Simple Notes App (Room With A View Kotlin - Google Codelabs) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e19ff5776c02423f98d3c7bac5b17dd8)](https://app.codacy.com/gh/PutraGandaD/SimpleNotesAppMvvm-GoogleCodeLabs/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 Based on this Google Codelabs =<br>
 https://developer.android.com/codelabs/android-room-with-a-view-kotlin<br>
