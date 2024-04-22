@@ -1,5 +1,7 @@
 # Simple Notes App (Room With A View Kotlin - Google Codelabs)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4dd4744362c04f9a82f48ede65a3e03e)](https://app.codacy.com/gh/PutraGandaD/SimpleNotesAppMvvm-GoogleCodeLabs?utm_source=github.com&utm_medium=referral&utm_content=PutraGandaD/SimpleNotesAppMvvm-GoogleCodeLabs&utm_campaign=Badge_Grade)
+
 Based on this Google Codelabs =<br>
 https://developer.android.com/codelabs/android-room-with-a-view-kotlin<br>
 And added two more features by myself, DELETE and UPDATE.<br> 
